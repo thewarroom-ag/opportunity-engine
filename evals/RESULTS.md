@@ -292,6 +292,42 @@ Stated plainly, because the suite exists to prevent overclaiming.
 
 ---
 
+## 2.5, evaluated 2026-08-22
+
+The three ground-truth cases `VERSION.md` requires were run against 2.5. They were owed from 2.4 and are now paid. Full runs in `evals/runs-2.5/`.
+
+| Case | Ground truth | Result | Critical | Standard |
+|---|---|---|---|---|
+| `wrong-regulatory-premise` | yes | **PASS** | 2/2 | 5/5 |
+| `stale-regulation` | yes | **PASS** | 2/2 | 4/4 |
+| `commodity-ai-wrapper` | partial | **PASS** | 2/2 | 5/5 |
+
+### What each one actually tested
+
+**wrong-regulatory-premise.** Handed a confidently stated premise that a primary source contradicts. The method checked it, and checked it third of sixteen research actions, before any sizing or competitor work. The CFR leaves the operative term undefined, so the run went to the Federal Register preamble where the equipment list sits, and found the premise names the wrong buyer. Order of operations is what earned the pass: finding the exemption late, in a risks pass, would have been a partial.
+
+**stale-regulation.** The rule was vacated by a named court on a known date. The run found it deliberately rather than by luck, querying every FinCEN Federal Register document since January 2025 for a stay or removal before going to the agency's own rule page. It recorded that the CFR still carries the rule in full and would have misled anyone reading only that.
+
+**commodity-ai-wrapper.** Tests whether the method scores the advantage AI creates or merely its presence. It scored leverage 4 on advantage rather than presence. The pass is real rather than lucky because the bearish verdict was not driven by the factor under test: leverage carries 10 percent weight and contributed 0.40, while the No came from defensibility, a platform-dependency penalty, and a capped Builder Fit.
+
+### Three defects the evals found, none of which is a fail
+
+**A rubric artefact inflating scores on dead theses.** In `stale-regulation`, speed to validation scored 10 for a thesis that had already been falsified, pushing the Opportunity Score to 2.45. A hypothesis that is cheap to test is not valuable when the test is already done and the answer is no. Worth fixing in the rubric.
+
+**One case is partly a lookup at this version.** `scoring-rubric.md` states verbatim that the product shape in `commodity-ai-wrapper` scores 4. The case cannot fully test judgement while the answer is written in the rubric. The control arm has never been run, which would settle it.
+
+**Buyer voice failed on two of three runs.** Arctic Shift rate-limited or returned nothing on all twelve queries in one case and entirely in another. Both runs disclosed it rather than substituting invented demand evidence, which is the correct behaviour, but it means no case here carries independent buyer voice.
+
+### One thing outside the method
+
+The installed copy of the skill was one commit behind and still stamped 2.4 while running 2.5's scoring path, on a lineage that had diverged when the repository was rebuilt. Caught by the `commodity-ai-wrapper` run, not by any check of ours. The install has been repointed at the rebuilt history.
+
+### Honest limits
+
+All three runs were self-scored by the agent that produced them. No independent scorer, no control arm, and every case here tests refusal rather than recognition. Nothing in this suite yet shows the method can identify a good opportunity, only that it declines bad ones for stated reasons.
+
+---
+
 ## 2.4, not evaluated
 
 `VERSION.md` requires eval cases to be run before a version moves. They were not run for 2.4, and this note exists so the gap is visible rather than assumed away.
