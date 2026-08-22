@@ -1,0 +1,4 @@
+.DS_Store
+.firecrawl/
+builder-profile.md
+*.local.md
