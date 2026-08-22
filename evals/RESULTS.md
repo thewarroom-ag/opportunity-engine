@@ -298,7 +298,7 @@ The three ground-truth cases `VERSION.md` requires were run against 2.5. They we
 
 | Case | Ground truth | Result | Critical | Standard |
 |---|---|---|---|---|
-| `wrong-regulatory-premise` | yes | **PASS** | 2/2 | 5/5 |
+| `wrong-regulatory-premise` | yes | **PASS**, twice independently | 2/2 | 5/5 |
 | `stale-regulation` | yes | **PASS** | 2/2 | 4/4 |
 | `commodity-ai-wrapper` | partial | **PASS** | 2/2 | 5/5 |
 
@@ -309,6 +309,16 @@ The three ground-truth cases `VERSION.md` requires were run against 2.5. They we
 **stale-regulation.** The rule was vacated by a named court on a known date. The run found it deliberately rather than by luck, querying every FinCEN Federal Register document since January 2025 for a stay or removal before going to the agency's own rule page. It recorded that the CFR still carries the rule in full and would have misled anyone reading only that.
 
 **commodity-ai-wrapper.** Tests whether the method scores the advantage AI creates or merely its presence. It scored leverage 4 on advantage rather than presence. The pass is real rather than lucky because the bearish verdict was not driven by the factor under test: leverage carries 10 percent weight and contributed 0.40, while the No came from defensibility, a platform-dependency penalty, and a capped Builder Fit.
+
+### An accidental replication
+
+`wrong-regulatory-premise` was run twice, independently, by two agents that never saw each other's work. The second run was an orphan from a first attempt that stalled, and it finished 76 minutes after the retry that replaced it. Both are kept: `wrong-regulatory-premise.md` and `wrong-regulatory-premise-run-2.md`.
+
+Both reached **PASS** on the same reasoning: check the CFR first, find the term undefined, go to the Federal Register preamble, find the equipment list, conclude the premise names the wrong buyer. Both independently noted that downstream sources contradict the exemption, and both flagged the VRF ambiguity between the 2024 preamble and the January 2026 fact sheet.
+
+**They scored the same case 3.2 and 3.9.** Same version, same setup, same ground truth, same verdict, a 0.7 spread on the Opportunity Score. Nobody planned this comparison and it is the only variance measurement in the suite. It suggests the score carries roughly this much noise between runs, which matters for anyone treating a decimal as meaningful. The `Next` list has asked for repeat runs to bound variance since before this release, and this is one data point toward that.
+
+Both runs failed Pass C, so neither carries buyer voice, and both were self-scored.
 
 ### Three defects the evals found, none of which is a fail
 
